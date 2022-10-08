@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequiredArgsConstructor
-public class LogDEmoController {
+public class LogDemoController {
 
     private final LogDemoService logDemoService;
     private final MyLogger myLogger;
