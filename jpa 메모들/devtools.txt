@@ -1,0 +1,7 @@
+dependencies{
+   implementation 'org.springframework.boot:spring-boot-devtools'
+}
+dependencies안에 implementation 'org.springframework.boot:spring-boot-devtools'이걸 넣고
+그리들 새로고침해서 다운받게 한 후 
+계속 서버를 다시 돌려 뷰를 새로고침 하는게 아니라 ctrl + shift + f9 하거나 아님 build에 recompile해주면
+서버를 다시 돌리지 않아도 화면이 새로고침 된다!!!! 
