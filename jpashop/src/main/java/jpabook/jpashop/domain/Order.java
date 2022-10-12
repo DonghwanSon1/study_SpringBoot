@@ -21,10 +21,10 @@ public class Order {
     @JoinColumn(name = "member_id") //맵핑을 뭘로 할건지 정하기 위해 씀
     private Member member;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "delivery_id")
     private  Delivery delivery;
 
