@@ -17,14 +17,14 @@ public class Order {
     @Column(name = "order_id") // 데이터베이스 테이블명으로 바꿔줄려고 씀
     private Long id;
 
-    @ManyToOne // 다대1
+    @ManyToOne(fetch = FetchType.LAZY) // 다대1
     @JoinColumn(name = "member_id") //맵핑을 뭘로 할건지 정하기 위해 씀
     private Member member;
 
     @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")
     private  Delivery delivery;
 
