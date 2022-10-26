@@ -2,16 +2,15 @@ package jpabook.jpashop.api;
 
 import jpabook.jpashop.domain.Member;
 import jpabook.jpashop.service.MemberService;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import java.sql.Statement;
 
 //@Controller @ResponseBody => 합친게 @RestController
 @RestController
@@ -39,6 +38,7 @@ public class MemberApiController {
 
     }
 
+    //회원등록
     @PostMapping("/api/v2/members")
     public CreateMemberResponse saveMemberV2(@RequestBody @Valid CreateMemberRequest request){
         Member member = new Member();
@@ -49,13 +49,24 @@ public class MemberApiController {
 
     }
 
+    //회원수정
+    @PutMapping("/api/v2/members/{id}")
+    public UpdateMemberResponse updateMEmberV2(
+            @PathVariable("id") Long id,
+            @RequestBody @Valid UpdateMemberRequest request){
+
+        memberService.update(id, request.getName());
+        Member findMember = memberService.findOne(id);
+        return new UpdateMemberResponse(findMember.getId(), findMember.getName());
+
+    }
+
     //별도의 DTO
     @Data
     static class CreateMemberRequest{
-        @NotEmpty  
+        @NotEmpty
         private String name;
     }
-
 
     @Data
     static class CreateMemberResponse{
@@ -66,6 +77,19 @@ public class MemberApiController {
         }
     }
 
+
+    // 회원수정 DTO
+    @Data
+    static class UpdateMemberRequest{
+        private String name;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class UpdateMemberResponse{
+        private Long id;
+        private String name;
+    }
 
 
 

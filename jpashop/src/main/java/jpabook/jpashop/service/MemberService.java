@@ -49,10 +49,10 @@ public class MemberService {
     }
 
 
-
-
-
-
-
-
+    // 회원수정 변경감지
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id);
+        member.setName(name);
+    }
 }
