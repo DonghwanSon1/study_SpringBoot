@@ -1,15 +1,15 @@
 package jpabook.jpashop.api;
-import jpabook.jpashop.domain.Address;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.OrderStatus;
-import jpabook.jpashop.repository.*;
-import lombok.Data;
+import jpabook.jpashop.repository.OrderRepository;
+import jpabook.jpashop.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.time.LocalDateTime;
+
 import java.util.List;
-import static java.util.stream.Collectors.toList;
+
 /**
  *
  * xToOne(ManyToOne, OneToOne) 관계 최적화
@@ -18,6 +18,7 @@ import static java.util.stream.Collectors.toList;
  * Order -> Delivery
  *
  */
+// findAllByString 안됌; 다시 해보기
 @RestController
 @RequiredArgsConstructor
 public class OrderSimpleApiController {
@@ -28,11 +29,7 @@ public class OrderSimpleApiController {
      */
     @GetMapping("/api/v1/simple-orders")
     public List<Order> ordersV1() {
-        List<Order> all = orderRepository.findAllByString(new OrderSearch());
-        for (Order order : all) {
-            order.getMember().getName(); //Lazy 강제 초기화
-            order.getDelivery().getAddress(); //Lazy 강제 초기환
-        }
+        List<Order> all = orderRepository.findAllByCriteria(new OrderSearch());
         return all;
     }
 }

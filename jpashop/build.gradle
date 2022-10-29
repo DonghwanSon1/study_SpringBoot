@@ -24,6 +24,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-devtools'
+	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-hibernate5'
+
 
 	// https://github.com/gavlyukovskiy/spring-boot-data-source-decorator 여기서 가져옴
 	// 데이터 베이스에 들어가는 (?,?)의 쿼리파라미터를 보여지게 하는 라이브러리이다. -p6spy
