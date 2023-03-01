@@ -46,18 +46,28 @@ public class OrderSimpleApiController {
         return all;
     }
 
+    /**
+     * 엔티티를 DTO로 변환하는 일반적인 방법이다.
+     * 쿼리가 총 1 + N + N번 실행된다. (v1과 쿼리수 결과는 같다.)
+     *  - order 조회 1번 (order 조회 결과 수가 N이 된다.)
+     *  - order -> member 지연 로딩 조회 N번
+     *  - order -> delivery 지연 로딩 조회 N번
+     *  - 예) order의 결과가 2개면 최악의 경우 1+2+2번 실행된다. (최악의 경우)
+     *      - 지연로딩은 영속성 컨텍스트에서 조회하므로, 이미 조회된 경우 쿼리를 생략한다.
+     */
     @GetMapping("/api/v2/simple-orders")
     public List<SimpleOrderDto> orderV2() {
+        // ORDER 2개
+        // N + 1 -> 1 + 회원 N + 배송 N
         List<Order> orders = orderRepository.findAllByCriteria(new OrderSearch());
+
+        //2개
         List<SimpleOrderDto> result = orders.stream()
                 .map(o -> new SimpleOrderDto(o))
                 .collect(Collectors.toList());
 
-        return result; 
-
-
+        return result;
     }
-
     @Data
     static class SimpleOrderDto {
         private Long orderId;
@@ -68,10 +78,10 @@ public class OrderSimpleApiController {
 
         public SimpleOrderDto(Order order) {
             orderId = order.getId();
-            name = order.getMember().getName();
+            name = order.getMember().getName(); // LAZY 초기화
             orderDate = order.getOrderDate();
             orderStatus = order.getStatus();
-            address = order.getDelivery().getAddress();
+            address = order.getDelivery().getAddress(); // LAZY 초기화
         }
     }
 }
