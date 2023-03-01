@@ -68,6 +68,23 @@ public class OrderSimpleApiController {
 
         return result;
     }
+
+    /**
+     * 엔티티를 패치 조인(fetch join) 사용해서 쿼리 1번에 조회한다.
+     * 패치조인으로 order -> member, order -> delivery 는 이미 조회된 상태이므로 지연 로딩이 안된다.
+     */
+    @GetMapping("/api/v3/simple-orders")
+    public List<SimpleOrderDto> orderV3() {
+        List<Order> orders = orderRepository.findAllWithMemberDelivery();
+
+        List<SimpleOrderDto> result = orders.stream()
+                .map(o -> new SimpleOrderDto(o))
+                .collect(Collectors.toList());
+
+        return result;
+
+    }
+
     @Data
     static class SimpleOrderDto {
         private Long orderId;
