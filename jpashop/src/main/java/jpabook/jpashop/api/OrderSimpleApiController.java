@@ -1,12 +1,12 @@
 package jpabook.jpashop.api;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jpabook.jpashop.domain.Address;
 import jpabook.jpashop.domain.Order;
 import jpabook.jpashop.domain.OrderStatus;
 import jpabook.jpashop.repository.OrderRepository;
 import jpabook.jpashop.repository.OrderSearch;
-import jpabook.jpashop.repository.OrderSimpleQueryDto;
+import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryDto;
+import jpabook.jpashop.repository.order.simplequery.OrderSimpleQueryRepository;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderSimpleApiController {
     private final OrderRepository orderRepository;
+    private final OrderSimpleQueryRepository orderSimpleQueryRepository;
     /** * V1. 엔티티 직접 노출
      * - Hibernate5Module 모듈 등록, LAZY=null 처리
      * - 양방향 관계 문제 발생 -> @JsonIgnore
@@ -99,10 +100,11 @@ public class OrderSimpleApiController {
      * 2. 필요하면 패치 조인으로 성능을 최적화 한다. -> 대부분의 성능 이슈가 해결된다.
      * 3. 그래도 안되면 DTO로 직접 조회하는 방법을 사용한다.
      * 4. 최후의 방법은 JPA가 제공하는 네이티브 SQL이나 스프링 JDBC 탬플릿을 사용해서 SQL을 직접 사용한다.
+     *
      */
     @GetMapping("/api/v4/simple-orders")
     public List<OrderSimpleQueryDto> orderV4() {
-        return orderRepository.findOrderDtos();
+        return orderSimpleQueryRepository.findOrderDtos();
     }
 
     @Data
