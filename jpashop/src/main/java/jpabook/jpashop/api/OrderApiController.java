@@ -87,6 +87,28 @@ public class OrderApiController {
         return result;
     }
 
+    /**
+     * - 페이징과 한계 돌파
+     *  컬렉션을 페치 조인하면 페이징이 불가능하다.
+     *      컬렉션을 페치 조인하면 일대다 조인이 발생하므로 데이터가 예측할 수 없이 증가한다.
+     *      일다대에서 일(1)을 기준으로 페이징을 하는 것이 목적이다.
+     *      그런데 데이터는 다(N)를 기준으로 row가 생성된다.
+     *      Order를 기준으로 페이징 하고 싶은데, 다(N)인 OrderItem을 조인하면 OrderItem이 기준이 되어버린다.
+     *
+     * 이 경우 하이버네이트는 경고 로그를 남기고 모든 DB 데이터를 읽어서 메모리에서 페이징을 시도한다.
+     * 최악의 경우 장애로 이어질 수 있다.
+     *
+     * - 한계 돌파
+     *  페이징 + 컬렉션 엔티티를 함께 조회하는 방법
+     *      먼저 ToOne(OneToOne, ManyToOne) 관계를 모두 페치조인 한다.
+     *      ToOne 관계는 row수를 증가시키지 않으므로 페이징 쿼리에 영향을 주지 않는다.
+     *      컬렉션은 지연 로딩으로 조회한다.
+     *      지연 로딩 성능 최적화를 위해 hibernate.default_batch_fetch_size , @BatchSize 를 적용한다.
+     *      - hibernate.default_batch_fetch_size: 글로벌 설정
+     *      - @BatchSize: 개별 최적화
+     *      이 옵션을 사용하면 컬렉션이나, 프록시 객체를 한꺼번에 설정한 size 만큼 IN 쿼리로 조회한다.
+     */
+
     @Getter
     static class OrderDto {
 
