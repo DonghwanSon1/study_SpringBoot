@@ -12,6 +12,7 @@ spring:
       hibernate:
         # show_sql: true
         format_sql: true
+        default_batch_fetch_size: 100 #in 쿼리의 갯 100~1000 사이를 선택하는 것을 권장
 
 logging.level:
   org.hibernate.SQL: debug
