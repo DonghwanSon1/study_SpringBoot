@@ -153,6 +153,16 @@ public class OrderApiController {
     public List<OrderQueryDto> orderV4() {
         return orderQueryRepository.findOrderQueryDtos();
     }
+
+    /**
+     * Query: 루트 1번, 컬렉션 1번
+     * ToOne 관계들을 먼저 조회하고, 여기서 얻은 식별자 orderId로 ToMany 관계인 OrderItem 을 한꺼번에 조회
+     * MAP을 사용해서 매칭 성능 향상(O(1))
+     */
+    @GetMapping("/api/v5/orders")
+    public List<OrderQueryDto> orderV5() {
+        return orderQueryRepository.findAllByDto_optimization();
+    }
     @Getter
     static class OrderDto {
 
