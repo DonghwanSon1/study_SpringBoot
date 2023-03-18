@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Vue3</title>
+</head>
+<body>
+    <div id="app">
+        <button type="button" v-on:click="counter++">
+            Counter: {{ counter }}
+        </button>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    counter: 0,
+                };
+            },
+        });
+        app.mount('#app');
+    </script>
+</body>
+</html>
+
+<!-- 
+    선언적 렌더링(Declarative Rendering) : Vue는 템플릿 구문 ({{데이터}})을 활용하여 데이터를 선언적으로 출력(렌더링)할 수 있도록 한다.
+    반응성(Reactivity) : Vue는 JavaScript 상태 변경을 자동으로 추적하고 변경이 발생하면 DOM을 효율적으로 업데이트 한다.
+
+    Vue
+        Vue는 User Interface 개발을 위한 자바스크립트 프레임워크 이다. 
+        HTML, CSS, JavaScript를 기반으로 단순하거나 복잡한 사용자 인터페이스(UI)를 효율적으로 개발하는데 도움을 준다.
+-->

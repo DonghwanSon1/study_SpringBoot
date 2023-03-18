@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>정리</title>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-bind:placeholder="message" />
+        <hr>
+        <button v-on:click="reverseMessage">click</button>
+        <hr/>
+        {{username}}
+        <hr>
+        <input type="text" v-model="username">
+        <hr>
+        <p v-if="visible">보이나요?</p>
+        <button type="button" v-on:click="visible = true">visible</button>
+        <hr>
+        <ul>
+            <li v-for="item in items">{{item}}</li>
+        </ul>
+    </div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return{
+                    message: "값을 입력해주세요!",
+                    username: "손동환",
+                    visible: false,
+                    items: ['사과', '당근', '딸기']
+                }
+            },
+            methods: {
+                hello() {
+                    alert("Hello~!");
+                },
+                reverseMessage() {
+                    this.message = this.message.split("").reverse().join("");
+                }
+            }
+        });
+        app.mount("#app")
+    </script>
+    
+</body>
+</html>
+<!-- 
+    바인딩(v-bind)
+        v-bind속성은 데이터(상태) 속성에 바인딩할 때 사용하는 특수 속성이다. 
+        바인딩 된 DOM은 placeholder 속성을 Vue 인스턴스의 message 속성으로 최신 상태를 유지한다. (반응형 동작)
+        그리고 'v-' 접두어가 붙은 특수 속성을 '디렉티브'라고 한다.
+
+    이벤트 핸들링(v-on)
+        직접적으로 DOM(p 엘리먼트)을 건드리지 않고 앱의 상태만 업데이트 한다. 
+        즉, 모든 DOM의 조작은 Vue에 의해 처리되고 있다.
+    
+    양방향 바인딩(v-model)
+        양방향으로 바인딩하는 v-model 디렉티브를 제공한다.
+
+    조건문(v-if)
+        엘리먼트 표시여부는 v-if 특수 속성(디렉티브)으로 제어할 수 있다.
+
+    반복문(v-for)
+        v-for는 배열에서 데이터를 가져와 아이템 목록을 표시하는데 사용할 수 있다.
+ -->
