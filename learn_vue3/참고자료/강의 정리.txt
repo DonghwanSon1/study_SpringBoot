@@ -1,0 +1,28 @@
+Vue 설치방법
+    Vue를 설치 할 수 있는 방법은 크게 3가지 이다.
+    1. 페이지에 CDN package로 import하기
+    2. npm을 사용하여 import하기
+    3. 공식 CLI를 사용하여 프로젝트를 scaffold하고, 최신 프론트엔드 워크플로우 (예, hot-reload, lint-on-save등)를 위한 batteries-included build를 제공한다.
+    
+    참고. scaffold란? 개발을 용이하기 시작할 수 잇는 발판을 제공해주는 것을 말한다.
+    batteries-included란? 외부 라이브러리를 더하지 않아도 기본적으로 제공하는 표준 라이브러리만으로도 시작하는데 문제 없다는 의미로 해석할 수 있다.
+
+CDN
+    프로토타이핑 또는 학습 목적이라면, 아래 코드로 최신 버전을 사용할 수 있다. 
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="https://unpkg.com/vue@3.2.31"></script>
+
+npm
+    npm install vue@next 을 이용해 설치
+
+Vue CLI
+    Vue CLI는 웹팩 기반 빌드도구 이다. 하지만 Vue CLI는 현재 유지관리 모드에 있다. 특정 웹팩 기능에 의존하지 않는 한 Vite로 새 프로젝트를 시작하는 것이 좋다.
+    Vue CLI를 사용하기 위해서는 @vue/cli v4.5 이상의 버전을 설치해야 한다.
+    npm install -g @vue/cli
+
+Vite
+    Vite(비트)는 Vue SFC를 지원하고 매우 가볍고 빠른 빌드 도구이다. Vue!의 저자이기도 한 Evan You가 만들었다.
+    Vite는 개발 서버를 구동할 때 매우 빠르다. 그리고 소스 코드의 변경이 일어났을 때 전체 모듈을 번들링 하는게 아니라 변경된 모듈만 교체하기 때문에 개발을 더욱더 빠르게 진행 할 수 있다.
+    vite로 프로젝트를 구성하는 방법.
+    npm init vue@latest 를 원하는 디렉토리로 가서 cmd창으로 프로젝트를 생성하면 된다.
+    이 명령은 공식 Vue 프로젝트 스캐폴딩 도구인 create-vue를 설치하고 실행합니다.
