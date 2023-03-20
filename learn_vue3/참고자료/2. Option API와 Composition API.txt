@@ -1,0 +1,38 @@
+Option API
+ - Option API는 data, methods, mounted 등과 같은 '옵션'을 사용한다.
+
+Composition API
+ - 반응형 코드를 작성하는 단일 setup 함수가 있다.
+ - Composition API는 옵션(data, methods, ...)을 선언하는 대신 가져온 함수(ref, onMounted, ...)를 사용하여 Due 컴포넌트를 작성할 수 있는 API 세트를 말한다.
+
+Composition API 등장배경
+ - Options API는 동일한 논리적 관심사를 처리하는 코드가 파일의 다른 부분에 분산되어 있어 코드를 분석하기가 매우 힘들다.
+   만약 코드가 더 복잡하고 길어질 경우 파일을 위아래로 스크롤해야 하기 때문에 더 이해하기 힘든 상황이 온다.
+   또한 특정 논리적 관심사 로직을 유틸로 추출하려는 경우 분산되어 있는 코드조각을 찾아 추출하는데 상당한 작업이 필요하다.
+ - Composition API를 사용하면 동일한 논리적 관심사 코드가 그룹화 되어 코드를 분석하기도 쉽고 유지보수가 용이해 진다. 
+   또한 논리적 관심사 코드 외 외부 유틸 파일로 추출하기가 쉬워진다.
+
+Composition API의 코드 재사용성
+ - Composition API의 가장 큰 장점은 'Composable 함수'(Composition API)의 형태로 로직의 재사용이 가능하다는 것이다.
+   Option API의 기본 로직 재상용 메커니즘인 Mixins의 모든 단점을 해결할 수 있다.
+ - Composition API의 재사용 기능은 계속해서 증가하는 구성 가능한 유틸리티 모음인 VueUse와 같은 인상적인 커뮤니티 프로젝트를 탄생시켰다.
+   또한 immutable data, state machines, RxJS와 같은 상태 저장 타사 서비스 또는 라이브러리를 Vue의 '반응성 시스템'에 쉽게 통합하기 위한 깨끗한 메커니즘 역할을 한다.
+ - Composition API는 Option API가 가지고 있던 2가지 주요 제한 사항을 해결한다.
+   - hook를 사용하여 관련 코드 조각을 함께 그룹화한다. (분석을 용이하게 한다.)
+   - Composables을 사용하면 애플리케이션 전체에서 '코드를 매우 쉽게 재사용' 할 수 있다.
+
+Option API와 관계
+ - Composition API로 기존 모든 사용 사례를 커버 가능할까?
+   - Composition API를 사용할때 여전히 필요할 수 있는 며가지 옵션(props, emits, name 및 inheritAttrs)만 있다.
+     <script setup>을 사용하는 경우 inheritAttrs 옵션만 필요할 수 있는 유일한 옵션이다.
+ - 두 API를 함께 사용할 수 있나요?
+   - 사용할 수 있다. Option API 구성 요소의 setup() 옵션을 통해 Composition API를 사용할 수 있다.
+   - 그러나 기존 옵션 API 코드베이스가 있는 경우에만 그렇게 하는게 좋다.(예를 들어 Composition API로 작성된 외부 라이브러리와 통합해야 하는경우)
+     새로운 프로젝트를 진행할때는 Composition API로 진행하는것이 좋다.
+ - Option API가 deprecated 될 예정인가?
+   - 아니다. 그렇게 할 계획도 없다.
+   - Option API는 Vue의 필수적인 부분이며 많은 개발자들이 Vue를 좋아하는 이유이다.
+     또한, 합성 API의 많은 이점은 대규모 프로젝트에서만 나타나고 Option API는 복잡도가 낮거나 중간인 많은 시나리오에 대한 확실한 선택으로 남아 있다.
+
+참고. 
+ - 영문의로 된 Vue 공식 홈페이지를 들어가 GetStarted 및 Docs에서 참고하면 된다.(옆에 토글로 Option과 Composition이 있으니 체크하면서 확인해라.)
