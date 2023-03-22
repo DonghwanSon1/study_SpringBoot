@@ -1,0 +1,20 @@
+Composition API
+ - Composition API는 옵션(data, methods, ...)을 선언하는 대신 가져온 함수(ref, onMounted, ...)를 사용하여 Due 컴포넌트를 작성할 수 있는 API 세트를 말한다.
+ - 아래정리한것들은 Composition API에서 각각의 API들을 포괄하는 용어 이다.
+ 1. 반응형 API(Reactivity API)
+    - 예를 들어 ref(), reactive()와 같은 API를 사용하여 reactive state(반응상태), computed, state(계산된 상태), watchers(감시자)와 같은 것들을 만들 수 있다.
+    - 반응형 API는 말 그대로 반응하는 데이터와 관련된 API 세트라고 보면 된다. (ex. ref(), isRef())
+ 2. 라이프 사이클 훅(Lifecycle Hooks)
+    - 예를 들어 onMounted(), onUnmounted()와 같은 API를 사용하여 프로그래밍 방식으로 컴포넌트 라이프 사이클에 접근할 수 있다.
+    - Vue 인스턴스나 컴포넌트가 생성될 때, 미리 사전에 정의된 몇 단계의 과정을 거치게 되는데 이를 라이플 사이클이라 한다.
+    - 쉽게 말해, Vue 인스턴스가 생성된 후 우리 눈에 보여지고, 사라지기까지의 단계를 말한다.
+    - Vue 인스턴스는 크게 생성(create)되고, DOM에 부착(mount)되고, 업데이트(update)되며, 없어지는(destroy) 4가지 과정을 거치게 된다.
+      - create -> mount -> update -> destroy
+    - 라이프사이클 단계에서 실행되는 함수를 라이프사이클 훅이라고 부른다.
+ 3. 종속성 주입 (DI->Dependency Injection)
+    - 예를들어 provide()와 inject()는 Reactivity API를 사용하는 동안 Vue의 의존성 주입 시스템을 활용 할 수 있게 해준다.
+
+
+
+
+
