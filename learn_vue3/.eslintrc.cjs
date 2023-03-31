@@ -16,6 +16,7 @@ module.exports = {
 	},
 	rules: {
 		'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+		'no-unused-var': 'off', //안쓰는 코드여도 오류배출 하지 않는다!
 		'prettier/prettier': [
 			'error',
 			{
