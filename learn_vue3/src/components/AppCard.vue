@@ -1,62 +1,71 @@
 <template>
 	<div class="card">
 		<div class="card-body">
-			<h5 class="card-title red">Card title</h5>
+			<!-- type: news, notice -->
+			<span class="badge bg-secondary">{{ typeName }}</span>
+			<h5 class="card-title red mt-2">{{ title }}</h5>
 			<p class="card-text">
-				Some quick example text to build on the card title and make up the bulk
-				of the card's content.
+				{{ contents }}
 			</p>
-			<a href="#" class="btn btn-primary">Go somewhere</a>
+			<a href="#" class="btn" :class="isLikeClass" @click="toggleLike">
+				좋아요
+			</a>
 		</div>
 	</div>
 </template>
 
 <script>
-import { ref } from 'vue';
+import { computed } from 'vue';
 
 export default {
-	setup() {
-		// const style = useCssModule();
-		// console.log('style: ', style);
-		console.log('AppCard setup()');
+	// props: ['title', 'contents'], -> 기본 props의 선언 방식
+	props: {
+		type: {
+			type: String,
+			default: 'news',
+			validator: value => {
+				return ['news', 'notice'].includes(value);
+			},
+		},
+		title: {
+			type: String,
+			required: true,
+		},
+		contents: {
+			type: String,
+			required: true,
+		},
+		isLike: {
+			type: Boolean,
+			default: false,
+		},
+		obj: {
+			type: Object,
+			default: () => ({}),
+		},
+	},
+	emits: ['toggleLike'],
+	setup(props, context) {
+		// console.log('props.title: ', props.title);
+		const isLikeClass = computed(() =>
+			props.isLike ? 'btn-danger' : 'btn-outline-danger',
+		);
+		const typeName = computed(() =>
+			props.type === 'news' ? '뉴스' : '공지사항',
+		);
 
-		const color = ref('red');
-		color.value = 'blue';
+		const toggleLike = () => {
+			// props.isLike = !props.isLike; //자식에서 엄마의 값을 변경할 순 없다. 변경하고 싶을땐 아래의 방식으로는 가능하다.
+			// props.obj.title = '김길동'; //JavaScript 언어 특징상 억지로 변경은 가능함.
+			context.emit('toggleLike');
+		};
 		return {
-			color,
+			isLikeClass,
+			typeName,
+			toggleLike,
 		};
 	},
 };
 </script>
 
-<!-- <style module>
-.red {
-	color: red !important;
-}
-</style> -->
-
-<style>
-.red {
-	color: v-bind(color) !important;
-}
-</style>
-
-<!-- <style lang="scss" scoped>
-.red {
-	color: red !important;
-}
-</style>  
--> scoped는 현재 이 파일에서만 style이 변경된다.-->
-
-<!-- <style module>
-.red {
-	color: red !important;
-}
-</style> 
--> 모듈로 사용할 시 $style.클래스명 으로 모듈화 할 수 있다.-->
-
-<!-- <style module="classes">
-.red {
-	color: red !important;
-}
-</style> -->
+<style></style>
