@@ -33,7 +33,7 @@ export default {
 		},
 		contents: {
 			type: String,
-			required: true,
+			// required: true,
 		},
 		isLike: {
 			type: Boolean,
