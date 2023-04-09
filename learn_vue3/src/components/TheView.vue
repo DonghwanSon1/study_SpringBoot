@@ -19,6 +19,15 @@
 			<!-- :model-value="username"
 			@update:model-value="value => (username = value)" // v-model 이랑 같은 뜻임;;..-->
 			<LabelInput v-model="username" label="이름"></LabelInput>
+			<br />
+			<br />
+			<LabelTitle v-model:title="username" label="제목"></LabelTitle>
+			<br />
+			<br />
+			<Username
+				v-model:firstname="firstname"
+				v-model:lastname="lastname"
+			></Username>
 		</div>
 	</main>
 </template>
@@ -28,6 +37,8 @@ import { reactive, ref } from 'vue';
 import AppCard from './AppCard.vue';
 import PostCreate from './PostCreate.vue';
 import LabelInput from './LabelInput.vue';
+import LabelTitle from './LabelTitle.vue';
+import Username from './Username.vue';
 export default {
 	template: {
 		AppCard,
@@ -64,14 +75,18 @@ export default {
 		};
 
 		const username = ref('');
+		const firstname = ref('');
+		const lastname = ref('');
 		return {
 			obj,
 			posts,
 			createPost,
 			username,
+			firstname,
+			lastname,
 		};
 	},
-	components: { AppCard, PostCreate, LabelInput },
+	components: { AppCard, PostCreate, LabelInput, LabelTitle, Username },
 };
 </script>
 

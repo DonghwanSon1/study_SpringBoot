@@ -1,10 +1,7 @@
 <template>
 	<label>
 		{{ label }}
-		<!-- v-model="username" -->
 		<input v-model="value" type="text" />
-		<!-- :value="modelValue"
-		@input="event => $emit('update:modelValue', event.target.value)" -->
 	</label>
 </template>
 
@@ -12,15 +9,15 @@
 import { computed } from 'vue';
 
 export default {
-	props: ['modelValue', 'label'], // vue2에서는 value였고,
-	emits: ['update:modelValue'], // @input이였다.
+	props: ['title', 'label'], // vue2에서는 value였고,
+	emits: ['update:title'], // @input이였다.
 	setup(props, { emit }) {
 		const value = computed({
 			get() {
-				return props.modelValue;
+				return props.title;
 			},
 			set(value) {
-				emit('update:modelValue', value);
+				emit('update:title', value);
 			},
 		});
 		return { value };
