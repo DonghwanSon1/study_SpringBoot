@@ -1,92 +1,66 @@
 <template>
 	<main>
 		<div class="container py-4">
-			<PostCreate @create-post="createPost"></PostCreate>
-			<hr class="my-4" />
-			<div class="row g-3">
-				<div v-for="post in posts" :key="post.id" class="col col-4">
-					<AppCard
-						:title="post.title"
-						:contents="post.contents"
-						:type="post.type"
-						:is-like="post.isLike"
-						@toggle-like="post.isLike = !post.isLike"
-					></AppCard>
-				</div>
-			</div>
-
-			<hr class="my-4" />
-			<!-- :model-value="username"
-			@update:model-value="value => (username = value)" // v-model 이랑 같은 뜻임;;..-->
-			<LabelInput v-model="username" label="이름"></LabelInput>
-			<br />
-			<br />
-			<LabelTitle v-model:title="username" label="제목"></LabelTitle>
-			<br />
-			<br />
-			<Username
-				v-model:firstname="firstname"
-				v-model:lastname="lastname"
-			></Username>
+			<MyButton class="my-button" id="my-button" @say-hello="sayHello">
+				<!-- @click="sayHello" -->
+			</MyButton>
+			<LabelInput :label="'이름'" data-id="id입니다."></LabelInput>
+			<hr />
+			<FancyButton>Click! <span style="color: red">@@@</span></FancyButton>
+			<FancyButton v-slot="{ fancyMessage }">
+				{{ fancyMessage }}
+			</FancyButton>
+			<hr />
+			<AppCard>
+				<!-- <template #[slotArgs]>제목임돠!</template> -->
+				<!-- <template #default>내용임돠!</template> -->
+				<!-- 암시적으로 Default 스롯입니다!!
+				<template v-slot:footer>푸터임돠!</template> -->
+				<template #header="{ headerMessage }">
+					{{ headerMessage }}
+				</template>
+				<template #default="{ childMessage, helloMessage }">
+					디폴트이다!! {{ message }} <br />
+					{{ childMessage }} <br />
+					{{ helloMessage }}
+				</template>
+				<template #footer="{ footerMessage }">
+					{{ footerMessage }}
+				</template>
+				<!-- {{ childMessage }} 자식 컴포넌트의 데이터는 사용못합니다. 다른 방법으로 불러와야된다.-->
+			</AppCard>
+			<hr />
+			<AppCard> 게시글입니다.!! </AppCard>
 		</div>
 	</main>
 </template>
 
 <script>
-import { reactive, ref } from 'vue';
-import AppCard from './AppCard.vue';
-import PostCreate from './PostCreate.vue';
+import MyButton from './MyButton.vue';
 import LabelInput from './LabelInput.vue';
-import LabelTitle from './LabelTitle.vue';
-import Username from './Username.vue';
+import FancyButton from './FancyButton.vue';
+import AppCard from './AppCard.vue';
+import { ref } from 'vue';
 export default {
-	template: {
+	components: {
+		MyButton,
+		LabelInput,
+		FancyButton,
 		AppCard,
 	},
 	setup() {
-		const obj = reactive({
-			title: '제목2',
-			contents: '내용2',
-		});
-
-		const posts = reactive([
-			{ id: 1, title: '제목1', contents: '내용1', isLike: true, type: 'news' },
-			{ id: 2, title: '제목2', contents: '내용2', isLike: true, type: 'news' },
-			{ id: 3, title: '제목3', contents: '내용3', isLike: true, type: 'news' },
-			{
-				id: 4,
-				title: '제목4',
-				contents: '내용4',
-				isLike: false,
-				type: 'notice',
-			},
-			{
-				id: 5,
-				title: '제목5',
-				contents: '내용5',
-				isLike: false,
-				type: 'notice',
-			},
-		]);
-
-		const createPost = newPost => {
-			console.log('newTitle: ', newPost);
-			posts.push(newPost);
+		const sayHello = () => {
+			alert('안녕!!!!');
 		};
 
-		const username = ref('');
-		const firstname = ref('');
-		const lastname = ref('');
+		const slotArgs = ref('header');
+		const message = ref('상위 컴포넌트만 데이터를 이용할 수 있습니다.');
 		return {
-			obj,
-			posts,
-			createPost,
-			username,
-			firstname,
-			lastname,
+			sayHello,
+			slotArgs,
+			message,
 		};
 	},
-	components: { AppCard, PostCreate, LabelInput, LabelTitle, Username },
 };
 </script>
 

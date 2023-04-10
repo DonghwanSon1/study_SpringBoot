@@ -16,7 +16,7 @@ Events
    - 객체문법 선언
      - PostCreate.vue, TheView.vue 참조
      - 객체문법으로 선언할 경우 validation 로직을 추가할 수 있다. 만약 validation이 없다면 null로 설정하면 된다.
-     - 선택 사항이지만 컴포넌트가 작동하는 방식을 더 잘 문서화하기 위해 모든 이벤트를 정의하는 것이 좋다. 또한 Vue가 fallthrough속성 에서 알려진 리스너를 제외할 수 있다.
+     - 선택 사항이지만 컴포넌트가 작동하는 방식을 더 잘 문서화하기 위해 모든 이벤트를 정의하는 것이 좋다. 또한 Vue가 Non-Prop속성 에서 알려진 리스너를 제외할 수 있다.
  - 그리고 JavaScript 코드에서 이벤트를 내보낼 때는 setup() 함수의 파라미터로 넘어온 context.emit()메서드를 사용할 수 있다.
 
 v-model 만들기
