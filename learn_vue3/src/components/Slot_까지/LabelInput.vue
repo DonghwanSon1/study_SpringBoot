@@ -1,0 +1,28 @@
+<template>
+	<label class="form-label" id="child-id">
+		{{ label }}
+	</label>
+	<input v-model="value" v-bind="$attrs" type="text" class="form-control" />
+</template>
+
+<script>
+import { computed } from 'vue';
+
+export default {
+	props: ['modelValue', 'label'], // vue2에서는 value였고,
+	emits: ['update:modelValue'], // @input이였다.
+	setup(props, { emit }) {
+		const value = computed({
+			get() {
+				return props.modelValue;
+			},
+			set(value) {
+				emit('update:modelValue', value);
+			},
+		});
+		return { value };
+	},
+};
+</script>
+
+<style lang="scss" scoped></style>
