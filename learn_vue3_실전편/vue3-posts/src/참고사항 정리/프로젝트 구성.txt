@@ -1,0 +1,18 @@
+1. Vue 프로젝트를 만들기 위해 터미널을 열어 원하는 디렉토리로 가서 'npm init vue@latest'로 프로젝트를 생성한다.
+ - 프로젝트명 적고, js로 하고, eslint, prettier만 yes 후 프로젝트 생성
+2. package.json을 node_modules로 받기 위해 vscode 터미널을 열어 'npm install'을 해준다.
+3. 후에 잘 설치가 되었는지 'npm run dev'를 적어 실행 시켜본다. (여기서 왜 'npm run serve'은 안되는 이유는 package.json에 dev만 적혀있고, serve도 적어주면 실행 가능해진다.)
+4. ESLint, Prettier를 설정해준다. (각 파일 참조.)
+4.1 '커맨드+,'로 열어 설정에서 eslint를 검색 후 Validate에서 setting.json에서 편집을 클릭 후 파일에서 편집한다. (파일 참조.)
+4.2 vscode 터미널에서 'npm run lint'를 명령어를 실행 시켜 전체적으로 수정시킨다.
+5. vscode가 제공해주는 jsconfig.json을 root디렉토리에 직접 파일을 생성해서 수정한다.
+5.1 jsconfig.json은 해당 디렉토리가 JavaScript 프로젝트의 루트임을 나타낸다. jsconfig.json 파일은 루트 파일과 JavaScript 언어 서비스에서 제공하는 기능에 대한 옵션을 지정한다.
+6. Bootstrap 설치
+6.1 bootstrap 아이콘 설치를 위한 vscode에서 터미널로 'npm install bootstrap bootstrap-icons' 설치
+6.2 main.js 라이브러리 추가 (main.js 파일 참조)
+7. bootstrap을 통한 navbor를 사용해 레이아웃 각자의 컴포넌트로 분리시켜 import해 프로젝트 만들 준비 시킨다. 
+
+
+
+
+
